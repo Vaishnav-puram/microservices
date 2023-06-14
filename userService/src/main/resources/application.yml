@@ -2,6 +2,8 @@ server:
   port: 8081
 
 spring:
+  application:
+    name: User-Service
   datasource:
     name: test1
     url: jdbc:mysql://localhost:3306/microservice?serverTimezone=UTC
@@ -16,4 +18,14 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:9090/eureka
+
 
