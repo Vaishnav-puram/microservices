@@ -20,5 +20,5 @@ public class User {
     private String name;
     private String email;
     @Transient  //database won't store this field
-    private List<Rating> ratings=new ArrayList<>();
+    private List<Rating> ratings;
 }
