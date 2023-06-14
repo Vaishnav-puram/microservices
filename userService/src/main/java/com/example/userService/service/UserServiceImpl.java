@@ -1,6 +1,7 @@
 package com.example.userService.service;
 
 import com.example.userService.exceptions.ResourceNotFound;
+import com.example.userService.external.service.HotelService;
 import com.example.userService.model.Hotel;
 import com.example.userService.model.Rating;
 import com.example.userService.model.User;
@@ -24,6 +25,9 @@ public class UserServiceImpl implements UserService{
     UserRepo userRepo;
     @Autowired
     RestTemplate restTemplate;
+
+    @Autowired
+    HotelService hotelService;
 
     private Logger logger= LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -50,7 +54,8 @@ public class UserServiceImpl implements UserService{
                 rating -> {
                     //api call to hotel to get the hotel details
                     logger.info("hotel id from rating service -->"+rating.getHotelId());
-                    Hotel hotel=restTemplate.getForObject("http://Hotel-Service/hotels/hotel/"+rating.getHotelId(),Hotel.class);
+                    //Hotel hotel=restTemplate.getForObject("http://Hotel-Service/hotels/hotel/"+rating.getHotelId(),Hotel.class);
+                    Hotel hotel=hotelService.getHotel(rating.getHotelId());
                     logger.info(hotel.toString());
                     rating.setHotel(hotel);
                     return rating;
