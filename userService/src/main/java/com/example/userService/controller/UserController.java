@@ -5,6 +5,7 @@ import com.example.userService.model.User;
 import com.example.userService.service.UserService;
 import com.example.userService.service.UserServiceImpl;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +35,8 @@ public class UserController {
 
     int retryCount=1;
     //@CircuitBreaker(name = "ratingHotelBreaker",fallbackMethod = "ratingHotelFallback")
-    @Retry(name = "ratingHotelService",fallbackMethod ="ratingHotelFallback")
+    //@Retry(name = "ratingHotelService",fallbackMethod ="ratingHotelFallback")
+    @RateLimiter(name = "ratingHotelLimiter",fallbackMethod ="ratingHotelFallback")
     @GetMapping("/user/{id}")
     public ResponseEntity<User> getUser(@PathVariable String id) throws ResourceNotFound {
         logger.info("retryCount"+retryCount);
