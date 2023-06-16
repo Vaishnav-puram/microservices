@@ -18,6 +18,6 @@ public class FeignClientInterceptor implements RequestInterceptor {
     @Override
     public void apply(RequestTemplate requestTemplate) {
        String token=oAuth2AuthorizedClientManager.authorize(OAuth2AuthorizeRequest.withClientRegistrationId("userServiceClient").principal("internal").build()).getAccessToken().getTokenValue();
-        requestTemplate.header("Authorization","Bearer"+token);
+        requestTemplate.header("Authorization","Bearer "+token);
     }
 }

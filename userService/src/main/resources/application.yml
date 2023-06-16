@@ -30,11 +30,12 @@ spring:
         registration:
           userServiceClient:
             provider: okta
-            authorizationGrantType: client_credentials
+            authorization-grant-type: client_credentials
             scope:
               - internal
             clientId: 0oa9z2zro0TWYfRdq5d7
             clientSecret: c_jkQFQmKWbmFkun1hyJQTrQH1u28Bj5XEElhk_e
+
         provider:
           okta:
             issuerUri: https://dev-75927992.okta.com/oauth2/default

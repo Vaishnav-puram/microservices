@@ -33,20 +33,21 @@ public class UserController {
     }
 
 
-    int retryCount=1;
+    //int retryCount=1;
     //@CircuitBreaker(name = "ratingHotelBreaker",fallbackMethod = "ratingHotelFallback")
     //@Retry(name = "ratingHotelService",fallbackMethod ="ratingHotelFallback")
     @RateLimiter(name = "ratingHotelLimiter",fallbackMethod ="ratingHotelFallback")
     @GetMapping("/user/{id}")
     public ResponseEntity<User> getUser(@PathVariable String id) throws ResourceNotFound {
-        logger.info("retryCount"+retryCount);
-        retryCount++;
+        //logger.info("retryCount"+retryCount);
+       // retryCount++;
         User user1=userService.getUser(id);
         return ResponseEntity.status(HttpStatus.OK).body(user1);
     }
 
     //creating fallback method for circuit breaker
     public ResponseEntity<User> ratingHotelFallback(String id,Exception ex){
+        ex.printStackTrace();
         logger.info("Fallback is executed because service is down "+ex.getMessage());
         User user=User.builder().name("dummyName").email("dummy@gmail.com").uid("dummyID").build();
         return new ResponseEntity<>(user,HttpStatus.OK);
