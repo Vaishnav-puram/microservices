@@ -15,6 +15,26 @@ spring:
       ddl-auto: update
     show-sql: true
 
+
+  #spring security okta as client
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://dev-75927992.okta.com/oauth2/default
+      client:
+        registration:
+          userServiceClient:
+            provider: okta
+            authorizationGrantType: client_credentials
+            scope:
+              - internal
+            clientId: 0oa9z2zro0TWYfRdq5d7
+            clientSecret: c_jkQFQmKWbmFkun1hyJQTrQH1u28Bj5XEElhk_e
+        provider:
+          okta:
+            issuerUri: https://dev-75927992.okta.com/oauth2/default
+
 eureka:
   instance:
     prefer-ip-address: true
@@ -23,3 +43,9 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://localhost:9090/eureka
+
+#oka configutation
+okta:
+  oauth2:
+    issuer: https://dev-75927992.okta.com/oauth2/default
+    audience: api://default
